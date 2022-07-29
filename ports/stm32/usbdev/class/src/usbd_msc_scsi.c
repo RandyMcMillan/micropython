@@ -739,10 +739,9 @@ static int8_t SCSI_ProcessRead (USBD_HandleTypeDef  *pdev, uint8_t lun)
 
 static int8_t SCSI_ProcessWrite (USBD_HandleTypeDef  *pdev, uint8_t lun)
 {
-  uint32_t len;
   USBD_MSC_BOT_HandleTypeDef *hmsc = &((usbd_cdc_msc_hid_state_t*)pdev->pClassData)->MSC_BOT_ClassData;
 
-  len = MIN(hmsc->scsi_blk_len , MSC_MEDIA_PACKET);
+  uint32_t len = MIN(hmsc->scsi_blk_len, MSC_MEDIA_PACKET);
 
   if(hmsc->bdev_ops->Write(lun ,
                               hmsc->bot_data,
@@ -769,7 +768,7 @@ static int8_t SCSI_ProcessWrite (USBD_HandleTypeDef  *pdev, uint8_t lun)
   }
   else
   {
-    /* Prapare EP to Receive next packet */
+    /* Prepare EP to Receive next packet */
     USBD_LL_PrepareReceive (pdev,
                             MSC_OUT_EP,
                             hmsc->bot_data,
