@@ -517,7 +517,6 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *para
       return -1; /* error */
     }
 
-    hmsc->bot_state = USBD_BOT_DATA_IN;
     hmsc->scsi_blk_len *= hmsc->scsi_blk_size[lun];
 
     /* cases 4,5 : Hi <> Dn */
@@ -529,6 +528,8 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *para
                      INVALID_CDB);
       return -1;
     }
+
+    hmsc->bot_state = USBD_BOT_DATA_IN;
   }
   hmsc->bot_data_length = MSC_MEDIA_PACKET;
 
